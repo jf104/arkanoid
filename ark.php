@@ -34,6 +34,10 @@ var leftBulletX = 0;
 var leftBulletY = 0;
 var rightBulletX = 0;
 var rightBulletY = 0;
+var left2ndBulletX = 0;
+var left2ndBulletY = 0;
+var right2ndBulletX = 0;
+var right2ndBulletY = 0;
 var ark;
 
 var whiteBlockX;
@@ -158,6 +162,17 @@ function shootBarGun()
 		 leftBulletY = barY;
 		 rightBulletX = (barX + barImg.width) - 12;
 		 rightBulletY = barY;
+		 return;
+	} 
+	if(left2ndBulletX == 0 && right2ndBulletY == 0 && leftBulletX != 0 && rightBulletY != 0)
+	{	
+		 ark.drawImage(bulletImg, barX + 12, barY);
+		 ark.drawImage(bulletImg, (barX + barImg.width) - 12, barY);
+		 
+		 left2ndBulletX = barX + 12;
+		 left2ndBulletY = barY;
+		 right2ndBulletX = (barX + barImg.width) - 12;
+		 right2ndBulletY = barY;
 	} 
 	
 }
@@ -174,6 +189,16 @@ function moveBullets()
 		rightBulletY -= gunShootSpeed;
         ark.drawImage(bulletImg, rightBulletX, rightBulletY);
 	}	
+	if(left2ndBulletY > 0)
+    {
+		left2ndBulletY -= gunShootSpeed;
+		ark.drawImage(bulletImg, left2ndBulletX, left2ndBulletY);
+	}
+	if(right2ndBulletY > 0)
+    {
+		right2ndBulletY -= gunShootSpeed;
+        ark.drawImage(bulletImg, right2ndBulletX, right2ndBulletY);
+	}	
 }
 
 
@@ -184,10 +209,22 @@ function resetLeftBulletPosition()
 	leftBulletY = 0;
 }
 
+function resetLeft2ndBulletPosition()
+{
+	left2ndBulletX = 0;
+	left2ndBulletY = 0;
+}
+
 function resetRightBulletPosition()
 {
 	rightBulletX = 0;
 	rightBulletY = 0;
+}
+
+function resetRight2ndBulletPosition()
+{
+	right2ndBulletX = 0;
+	right2ndBulletY = 0;
 }
 
 function checkIfBulletsHitBlock(block)
@@ -197,10 +234,20 @@ function checkIfBulletsHitBlock(block)
 	leftBulletY1 = leftBulletY;
 	leftBulletY2 = leftBulletY + bulletImg.height;
 	
+	left2ndBulletX1 = left2ndBulletX;
+	left2ndBulletX2 = left2ndBulletX + bulletImg.width;
+	left2ndBulletY1 = left2ndBulletY;
+	left2ndBulletY2 = left2ndBulletY + bulletImg.height;
+	
 	rightBulletX1 = rightBulletX;
 	rightBulletX2 = rightBulletX + bulletImg.width;
 	rightBulletY1 = rightBulletY;
 	rightBulletY2 = rightBulletY + bulletImg.height;
+	
+	right2ndBulletX1 = right2ndBulletX;
+	right2ndBulletX2 = right2ndBulletX + bulletImg.width;
+	right2ndBulletY1 = right2ndBulletY;
+	right2ndBulletY2 = right2ndBulletY + bulletImg.height;
 	
 	X1_block = block.x+3;
 	X2_block = block.x+3 + block.image.width;
@@ -216,6 +263,15 @@ function checkIfBulletsHitBlock(block)
 		}
 	}
 	
+	if(left2ndBulletX2 >= X1_block && left2ndBulletX2 <= X2_block || left2ndBulletX1 >= X1_block && left2ndBulletX1 <= X2_block)
+	{
+		if(left2ndBulletY1 + 2 >= Y2_block && left2ndBulletY1 -2 <= Y2_block)
+		{
+			resetLeft2ndBulletPosition();//down
+			block.hit = true;
+		}
+	}
+	
 		
 	if(rightBulletX2 >= X1_block && rightBulletX2 <= X2_block || rightBulletX1 >= X1_block && rightBulletX1 <= X2_block)
 	{
@@ -226,13 +282,30 @@ function checkIfBulletsHitBlock(block)
 		}
 	}
 	
+	if(right2ndBulletX2 >= X1_block && right2ndBulletX2 <= X2_block || right2ndBulletX1 >= X1_block && right2ndBulletX1 <= X2_block)
+	{
+		if(right2ndBulletY1 + 2 >= Y2_block && right2ndBulletY1 -2 <= Y2_block)
+		{
+			resetRight2ndBulletPosition();//down
+			block.hit = true;
+		}
+	}
+	
 	if(leftBulletY1<0)
     {
         resetLeftBulletPosition();
     }
+	if(left2ndBulletY1<0)
+    {
+        resetLeft2ndBulletPosition();
+    }
 	if(rightBulletY1<0)
     {
 		resetRightBulletPosition();
+    }
+	if(right2ndBulletY1<0)
+    {
+		resetRight2ndBulletPosition();
     }			
 }
  
@@ -357,7 +430,7 @@ function drawBlocks()
 			PrizeBlockY += prizeFallSpeed;
 			if(!currentBlock.prize)
 			{
-				currentBlock.prize = Math.floor((Math.random()*10)+1);
+				currentBlock.prize = Math.floor((Math.random()*5)+1);
 				prizeBlockImg = choosePrizeBlockImage(currentBlock);
 			}
 
@@ -440,6 +513,10 @@ function getPrizeFromBlock(currentBlock)
 function endLevel()
 {
 	endGameFlag = true;
+	resetLeftBulletPosition();
+	resetLeft2ndBulletPosition();
+	resetRightBulletPosition();
+	resetRight2ndBulletPosition();
 	startGame();
 	ballX = 100;
 	ballY = 100;
@@ -532,7 +609,9 @@ function arkanoid(){
     if(ballY>screenHeight - ballImg.height)
     {
 		resetLeftBulletPosition();
+		resetLeft2ndBulletPosition();
 		resetRightBulletPosition();
+		resetRight2ndBulletPosition();
 		lazerBar = false;
 		setSpeed(2);
 		awwwww.play();
@@ -698,11 +777,6 @@ function chooseBallDirection(newDirection,block,check)
 			if(block != 'z')
 			{
 				block.hit = true;
-				if(!PrizeFlag)
-				{
-					block.prizeCheck = true;
-					PrizeFlag = true;
-				}
 			}
 			verticalSpeed = -speed;
 			checkIfChangeScore(check,5)
@@ -711,11 +785,6 @@ function chooseBallDirection(newDirection,block,check)
 			if(block != 'z')
 			{
 				block.hit = true;
-				if(!PrizeFlag)
-				{
-					block.prizeCheck = true;
-					PrizeFlag = true;
-				}
 			}
 			horizontalSpeed = -speed;
 			checkIfChangeScore(check,5)
@@ -724,11 +793,6 @@ function chooseBallDirection(newDirection,block,check)
 			if(block != 'z')
 			{
 				block.hit = true;
-				if(!PrizeFlag)
-				{
-					block.prizeCheck = true;
-					PrizeFlag = true;
-				}
 			}
 			horizontalSpeed = speed;
 			checkIfChangeScore(check,5)
