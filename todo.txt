@@ -1,0 +1,13 @@
+must fix accepting prize box in bar
+must make ball bounce in different direction depending on where it hits bar
+change bar back to normal bar when player dies not when game is restarted
+change score when bullets hit block
+change score when bar gets prize
+add high score
+add 3 ball prize
+change starting point of ball(should start on bar on start ball movement on mouse click)(add magent prize while doing this)
+add ball magnet prize
+add extra life prize
+add skip level prize
+add extra points prize
+dont let ball hit prize block(should go though them not bounce off of them)
