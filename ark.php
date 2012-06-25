@@ -19,12 +19,13 @@
 		$('#gameScore').val(score);
 		init();
 		initBlock();
+		startGame();
 	});
 </script>
 </head>
 <body>
 	<div style="padding-left:490px;float:left">
-    <input id="ss" type="button" value="start/stop"/>
+    <input id="ss" type="button" value="Pause"/>
 	Lifes:<input type="text" id="numLifes" name="numLifes" value='' style="width:15px" disabled='disabled' />
 	Score:<input type="text" id="gameScore" name="gameScore" value='' style="width:65px" disabled='disabled' />
 	<input id="Reset" type="button" value="Reset" onClick='resetGame()' />

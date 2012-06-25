@@ -18,6 +18,7 @@ var slowTimer = 0;
 var endGameFlag = false;
 var screenWidth;
 var screenHeight
+var gameHasStarted = false;
 var isBallMoving = false;
 var barX;
 var barY;

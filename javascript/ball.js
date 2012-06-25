@@ -6,6 +6,13 @@ function makeBallMove()
     ballY += verticalSpeed;
 }
 
+function makeBallStayOnBar()
+{
+	ark.drawImage(ballImg, barX + 10, barY - ballImg.height);
+	ballX = barX+10;
+	ballY = barY - ballImg.height;
+}
+
 function checkWhereBallIsOnScreen()
 {
 	    //check if ball is going up or down
@@ -39,6 +46,7 @@ function checkWhereBallIsOnScreen()
     //ball hit the bottom Not So Nice lose life
     if(ballY>screenHeight - ballImg.height)
     {
+		isBallMoving = false;
 		resetLeftBulletPosition();
 		resetLeft2ndBulletPosition();
 		resetRightBulletPosition();
@@ -55,7 +63,7 @@ function checkWhereBallIsOnScreen()
 			resetGame();	
 		}
         verticalSpeed = -speed;
-        startGame();
+        //startGame();
     }
  
     //ball hit the top

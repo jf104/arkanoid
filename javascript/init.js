@@ -57,6 +57,10 @@ function init(){
 		if(lazerBar){
 			shootBarGun();
 		}
+		if(gameHasStarted && !isBallMoving)
+		{
+			isBallMoving = true;	
+		}
     });
  
     $("#ss").click(function (){

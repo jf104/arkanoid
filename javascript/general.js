@@ -47,9 +47,9 @@ function changeScore(points)
  
 function startGame()
 {
-    isBallMoving = !isBallMoving;
+    gameHasStarted = !gameHasStarted;
  
-    if(isBallMoving)
+    if(gameHasStarted)
     {
         clearInterval(intervalID);
         intervalID = setInterval(arkanoid, 10);
@@ -62,12 +62,13 @@ function startGame()
 
 function endLevel()
 {
+	isBallMoving = false;
 	endGameFlag = true;
 	resetLeftBulletPosition();
 	resetLeft2ndBulletPosition();
 	resetRightBulletPosition();
 	resetRight2ndBulletPosition();
-	startGame();
+//	startGame();
 	ballX = 100;
 	ballY = 100;
 	initBlock();

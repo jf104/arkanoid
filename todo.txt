@@ -11,3 +11,5 @@ add extra life prize
 add skip level prize
 add extra points prize
 dont let ball hit prize block(should go though them not bounce off of them)
+remove special bar when get to next level
+add different block layouts for different levels
